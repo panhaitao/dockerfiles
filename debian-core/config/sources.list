@@ -1,0 +1,5 @@
+deb http://packages.deepin.com/deepin-server/ kui main non-free contrib
+deb http://packages.deepin.com/deepin-server/ kui-security main non-free contrib
+
+deb-src http://packages.deepin.com/deepin-server/ kui main non-free contrib
+deb-src http://packages.deepin.com/deepin-server/ kui-security main non-free contrib
