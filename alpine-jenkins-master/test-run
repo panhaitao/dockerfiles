@@ -1,0 +1,2 @@
+docker run -d -t -i --net=host --name=jenkins-master --env JENKINS_MODE=master --env JENKINS_ADMIN_ID=root --env JENKINS_ADMIN_PW=root  jenkins-master
+

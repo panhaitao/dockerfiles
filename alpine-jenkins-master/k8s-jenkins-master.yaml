@@ -9,7 +9,8 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    k8s-app: jenkins
+    k8s-app: jenkins-master
+    k8s-app: jenkins-slave
   name: jenkins-admin
   namespace: jenkins
 ---
@@ -18,7 +19,8 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: jenkins-admin
   labels:
-    k8s-app: jenkins
+    k8s-app: jenkins-master
+    k8s-app: jenkins-slave
 subjects:
   - kind: ServiceAccount
     name: jenkins-admin
@@ -31,19 +33,19 @@ roleRef:
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: jenkins
+  name: jenkins-master
   namespace: jenkins
   labels:
-    k8s-app: jenkins
+    k8s-app: jenkins-master
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: jenkins
+      k8s-app: jenkins-master
   template:
     metadata:
       labels:
-        k8s-app: jenkins
+        k8s-app: jenkins-master
     spec:
       containers:
       - name: jenkins
@@ -61,24 +63,29 @@ spec:
       volumes:
         - name: jenkins-home
           hostPath:
-            path: /data/jenkins
+            path: /data/jenkins/master
       serviceAccountName: jenkins-admin
 ---
 kind: Service
 apiVersion: v1
 metadata:
   labels:
-    k8s-app: jenkins
+    k8s-app: jenkins-master
   name: jenkins
   namespace: jenkins
   annotations:
     prometheus.io/scrape: 'true'
 spec:
   ports:
-    - name: jenkins
+    - name: jenkins-ui
       port: 8080
       nodePort: 30080
       targetPort: 8080
+    - name: jenkins-agent
+      port: 50000
+      nodePort: 30000
+      targetPort: 50000
+  type: NodePort
   type: NodePort
   selector:
-    k8s-app: jenkins
+    k8s-app: jenkins-master

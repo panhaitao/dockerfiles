@@ -94,6 +94,6 @@ VOLUME ["/usr/share/jenkins/", "/data/jenkins"]
 # for main web interface:
 EXPOSE ${http_port}
 # will be used by attached slave agents:
-#EXPOSE ${agent_port}
+EXPOSE ${agent_port}
 
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]

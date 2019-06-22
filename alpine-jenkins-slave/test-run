@@ -1,0 +1,1 @@
+docker run -d -t -i --net=host --env JENKINS_MODE=slave --env JENKINS_MASTER_URL=http://127.0.0.1:30080/computer/agent001/slave-agent.jnlp --env JENKINS_SLAVE_SECRET=48de37b3bb2cbf61b2ff7eca62b692a436f54d6bf930e4e6a6f8b1d5f64fa4be --env JENKINS_SLAVE_WORKDIR=/tmp/agent/jenkins jenkins-slave:latest

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IMAGE:   Jenkins-Core
+# IMAGE:   Jenkins-slave
 # VERSION: 2.164.3
 # BASE:    github.com/liumiaocn/easypack/blob/master/containers/alpine/jenkins
 # INTEGRATION:
@@ -19,6 +19,7 @@ FROM openjdk:8-jdk-alpine
 #MAINTAINER
 ###############################################################################
 MAINTAINER LiuMiao <liumiaocn@outlook.com>
+MAINTAINER ShenLan <xz@onwalk.net>
 
 ###############################################################################
 #ARG Setting
@@ -104,20 +105,6 @@ RUN  apk add --no-cache git curl unzip bash ttf-dejavu coreutils ansible subvers
   #&& ln -s /usr/local/share/maven/bin/mvn /usr/local/bin/mvn \
   #&& ln -s /usr/local/share/sonar/bin/sonar-scanner /usr/local/bin/sonar-scanner \
 
-###############################################################################
-#Prepare Setting
-###############################################################################
-COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groovy
-COPY init_login.groovy /usr/share/jenkins/ref/init.groovy.d/set-user-security.groovy
-COPY jenkins-support /usr/local/bin/jenkins-support
-COPY jenkins.sh /usr/local/bin/jenkins.sh
-COPY install-plugins.sh /usr/local/bin/install-plugins.sh
-
-###############################################################################
-#Install plugins
-###############################################################################
-#RUN /usr/local/bin/install-plugins.sh gitlab-plugin sonar redmine docker-build-step ansible build-pipeline-plugin buildgraph-view workflow-aggregator pipeline-maven pipeline-utility-steps ssh-slaves
-#RUN /usr/local/bin/install-plugins.sh gitlab-plugin ansible sonar redmine docker-build-step docker-workflow pipeline-stage-step pipeline-stage-view
 
 ###############################################################################
 #Volume Setting
@@ -128,6 +115,7 @@ VOLUME ["/usr/share/jenkins/", "/data/jenkins", "/data/maven", "/data/kube", "/d
 #expose Setting
 ###############################################################################
 # will be used by attached slave agents:
-EXPOSE ${agent_port}
+#EXPOSE ${agent_port}
 
-ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
+ENTRYPOINT ["/bin/sh"]
+#ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
