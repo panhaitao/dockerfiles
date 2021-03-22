@@ -1,6 +1,3 @@
-#!/bin/bash
-
-hugo new site /site
-git clone https://github.com/panhaitao/markdown-blog.git /site/content/
-cd /site && hugo server -D
-
+#!/bin/sh
+cd /site && \
+hugo server --bind ${bind_ip}  --b ${base_url} --config /site/config.toml
