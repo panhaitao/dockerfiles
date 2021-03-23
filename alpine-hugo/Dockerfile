@@ -1,7 +1,8 @@
 FROM alpine:3.12
 
-ENV bind_ip="0.0.0.0"
-ENV base_url="http://blog.onwalk.net:1313"
+ENV BIND_IP="0.0.0.0"
+ENV HUGO_BASEURL=https://blog.onwalk.net
+ENV HUGO_ENV=production
 
 RUN apk update &&  apk add --no-cache ca-certificates libc6-compat libstdc++ git curl
 RUN curl -L https://github.com/gohugoio/hugo/releases/download/v0.65.3/hugo_extended_0.65.3_Linux-64bit.tar.gz | tar -xz -C /tmp && \

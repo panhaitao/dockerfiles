@@ -1,4 +1,3 @@
-baseURL = "http://blog.onwalk.net"
 title = "GeekDoc"
 theme = "hugo-geekdoc"
 
