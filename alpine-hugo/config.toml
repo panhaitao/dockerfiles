@@ -1,0 +1,16 @@
+baseURL = "http://blog.onwalk.net"
+title = "GeekDoc"
+theme = "hugo-geekdoc"
+
+pluralizeListTitles = false
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+disablePathToLower = true
+
+[markup]
+  [markup.goldmark.renderer]
+    # Needed for mermaid shortcode
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 9
